@@ -1,4 +1,5 @@
-# Introduction of project study
+# Predictors of hospitalization among men and women with CHF
+Introduction
 Heart failure is a clinical syndrome characterized by symptoms and signs of increased 
 tissue or organ fluid retention and decreased tissue or organ perfusion. With an aging 
 population, its prevalence continues to increase worldwide with high rates of morbidity and 
