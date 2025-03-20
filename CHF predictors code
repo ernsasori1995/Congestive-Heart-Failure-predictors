@@ -1,0 +1,251 @@
+/*Reading DIG trial dataset*/
+%let path = C:\Users\HP\OneDrive\Desktop\ILE\;
+
+libname ILE "&path";
+
+options validvarname = v7;
+proc import datafile= "&path\dig.csv" out=ILE.dig_trial
+	dbms=csv replace;
+	guessingrows=max;
+run;
+
+/*checking variable specs and content*/
+proc contents data=ILE.dig_trial;
+run;
+
+
+proc freq data=ile.dig_trial;
+	tables sex;
+run;
+*Constructing descriptive statistics for study
+men (grouped into placebo and digoxin);
+*age;
+proc ttest data=ile.dig_trial;
+	where sex=1;
+	class trtmt;
+	var age;
+run;
+*duration og heart failure;
+proc ttest data=ile.dig_trial;
+	where sex=1;
+	class trtmt;
+	var chfdur;
+run;
+*race;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*race/chisq norow nopercent;
+run;
+
+*HF due to ischemic disease;
+proc freq data=ile.dig_trial;
+	where sex=1 and chfetiol in (1,2);
+	tables trtmt*chfetiol/chisq norow nopercent;
+run;
+
+*prior myocardial infarction;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*prevmi/chisq norow nopercent;
+run;
+ 
+*current angina pectoris;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*angina/chisq norow nopercent;
+run;
+
+*diabetes mellitus;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*diabetes/chisq norow nopercent;
+run;
+
+*hypertension;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*hyperten/chisq norow nopercent;
+run;
+
+*ACEI's;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*aceinhib/chisq norow nopercent;
+run;
+
+*Prior digoxin use;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*diguse/chisq norow nopercent;
+run;
+
+*diuretics;
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*diuret/chisq norow nopercent;
+run;
+
+*potassium sparing diuretics'
+proc freq data=ile.dig_trial;
+	where sex=1;
+	tables trtmt*diuretk/chisq norow nopercent;
+run;
+
+*elevated jugular pressure;
+proc freq data=ile.dig_trial;
+	where sex=1 and elevjvp in (1,2,3);
+	tables trtmt*elevjvp/chisq norow nopercent;
+run;
+
+*rales;
+proc freq data=ile.dig_trial;
+	where sex=1 and rales in (1,2,3);
+	tables trtmt*rales/chisq norow nopercent;
+run;
+
+*pulmonary edema;
+proc freq data=ile.dig_trial;
+	where sex=1 and pedema in (1,2,3);
+	tables trtmt*/chisq norow nopercent;
+run;
+
+*serum potassium;
+proc ttest data=ile.dig_trial;
+	where sex=1;
+	class trtmt;
+	var klevel;
+run;
+
+*dyspnea at rest;
+proc ttest data=ile.dig_trial;
+	where sex=1;
+	class trtmt;
+	var restdys;
+run;
+
+
+*Constructing descriptive statistics for study
+women (grouped into placebo and digoxin);
+*age;
+proc ttest data=ile.dig_trial;
+	where sex=2;
+	class trtmt;
+	var age;
+run;
+*duration og heart failure;
+proc ttest data=ile.dig_trial;
+	where sex=2;
+	class trtmt;
+	var chfdur;
+run;
+*race;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*race/chisq norow nopercent;
+run;
+
+*HF due to ischemic disease;
+proc freq data=ile.dig_trial;
+	where sex=2 and chfetiol in (1,2);
+	tables trtmt*chfetiol/chisq norow nopercent;
+run;
+
+*prior myocardial infarction;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*prevmi/chisq norow nopercent;
+run;
+ 
+*current angina pectoris;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*angina/chisq norow nopercent;
+run;
+
+*diabetes mellitus;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*diabetes/chisq norow nopercent;
+run;
+
+*hypertension;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*hyperten/chisq norow nopercent;
+run;
+
+*ACEI's;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*aceinhib/chisq norow nopercent;
+run;
+
+*Prior digoxin use;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*diguse/chisq norow nopercent;
+run;
+
+*diuretics;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*diuret/chisq norow nopercent;
+run;
+
+*potassium sparing diuretics;
+proc freq data=ile.dig_trial;
+	where sex=2;
+	tables trtmt*diuretk/chisq norow nopercent;
+run;
+
+*elevated jugular pressure;
+proc freq data=ile.dig_trial;
+	where sex=2 and elevjvp in (1,2,3);
+	tables trtmt*elevjvp/chisq norow nopercent;
+run;
+
+*rales;
+proc freq data=ile.dig_trial;
+	where sex=2 and rales in (1,2,3);
+	tables trtmt*rales/chisq norow nopercent;
+run;
+
+*pulmonary edema;
+proc freq data=ile.dig_trial;
+	where sex=2 and pedema in (1,2,3);
+	tables trtmt*/chisq norow nopercent;
+run;
+
+*serum potassium;
+proc ttest data=ile.dig_trial;
+	where sex=2;
+	class trtmt;
+	var klevel;
+run;
+
+*dyspnea at rest;
+proc ttest data=ile.dig_trial;
+	where sex=2;
+	class trtmt;
+	var restdys;
+run;
+
+
+*cox proportional regression models;
+*men;
+proc phreg data=ile.dig_trial;
+	where sex=1;
+	class race(ref='1') functcls(ref='1') prevmi(ref='0') diabetes(ref='0') hyperten(ref='0')
+		  aceinhib(ref='0') diguse(ref='0') diuretk(ref='0') elevjvp(ref='0') chfetiol(ref='6') pulcong(ref='0')/param=ref;
+	model whfdays*whf(0) = race functcls prevmi diabetes hyperten aceinhib diguse diuretk elevjvp chfetiol age 
+							ejf_per creat heartrte diabp/ rl;
+run;
+
+*women;
+proc phreg data=ile.dig_trial;
+	where sex=2;
+	class race(ref='1') functcls(ref='1') prevmi(ref='0') diabetes(ref='0') hyperten(ref='0')
+		  aceinhib(ref='0') diguse(ref='0') diuretk(ref='0') elevjvp(ref='0') chfetiol(ref='6') pulcong(ref='0')/param=ref;
+	model whfdays*whf(0) = race functcls prevmi diabetes hyperten aceinhib diguse diuretk elevjvp chfetiol age 
+							ejf_per creat heartrte diabp/ rl;
+run;
